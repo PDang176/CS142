@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <future>
 
 using namespace std;
 
@@ -36,7 +37,7 @@ int max_points(vector<vector<int>> const & popcorn,
                     
     // Check to see if we collected a popcorn
     for(int i = 0; i < p; i++){
-        if(r == popcorn[i][0] && c == popcorn[i][1] && t == popcorn[i][2]){
+        if(t == popcorn[i][2] && r == popcorn[i][0] && c == popcorn[i][1]){
             points++;
             //cout << "Popcorn: " << r << " " << c << " " << t << " " << points << endl;
         }
@@ -44,8 +45,9 @@ int max_points(vector<vector<int>> const & popcorn,
     
     // Check to see if we hit a boulder
     for(int i = 0; i < b; i++){
-        if(r == boulder[i][0] && c == boulder[i][1] && t == boulder[i][2]){
+        if(t == boulder[i][2] && r == boulder[i][0] && c == boulder[i][1]){ // Consider run dead
             points /= 2;
+            return points;
             //cout << "Boulder: " << r << " " << c << " " << t << " " << points << endl;
             break;
         }
