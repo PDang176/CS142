@@ -33,7 +33,7 @@ int max_points(vector<vector<int>> const & popcorn,
                 int t, 
                 int max_time,
                 int points){
-
+                    
     // Check to see if we collected a popcorn
     for(int i = 0; i < p; i++){
         if(r == popcorn[i][0] && c == popcorn[i][1] && t == popcorn[i][2]){
