@@ -7,7 +7,8 @@
         "utility": "cpp",
         "xtree": "cpp",
         "future": "cpp",
-        "iomanip": "cpp"
+        "iomanip": "cpp",
+        "*.tcc": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }
