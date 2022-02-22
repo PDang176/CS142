@@ -51,7 +51,7 @@ int main(){
     for(int i = 1; i <= n; i++){
         cin >> trucks[i][0] >> trucks[i][1];
     }
-
+ 
     if(!W || !L){
         cout << 0;
         return 0;
