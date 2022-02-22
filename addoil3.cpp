@@ -2,34 +2,23 @@
 #include <vector>
 #include <queue>
 #include <climits>
+#include <algorithm>
 
 using namespace std;
 
 typedef pair<int, int> p;
 
-class Graph{
-    int n;
-    vector<pair<int, int>> *neighbors;
+void addEdge(int n, p neighbors[][n], int end_index[], int x, int y, int z){
+    neighbors[x][end_index[x]++] = make_pair(y, z);
+    neighbors[y][end_index[y]++] = make_pair(x, z);
+}
 
-    public:
-        Graph(int n){
-            this-> n = n;
-            neighbors = new vector<p>[n];
-        }
-        void addEdge(int x, int y, int z){
-            neighbors[x].push_back(make_pair(y, z));
-            neighbors[y].push_back(make_pair(x, z));
-        }
-        void dijkstra(int src);
-};
-
-void Graph::dijkstra(int src){
+void dijkstra(vector<p> neighbors[], int end_index[], int n, int src){
     priority_queue<p, vector<p>, greater<p>> pq;
 
     int distance[n];
     fill(distance, distance + n, INT_MAX);
 
-    // Distance, Index
     pq.push(make_pair(0, src));
     distance[src] = 0;
 
@@ -37,10 +26,9 @@ void Graph::dijkstra(int src){
         int curr = pq.top().second;
         pq.pop();
 
-        vector<p>::iterator it;
-        for(it = neighbors[curr].begin(); it != neighbors[curr].end(); it++){
-            int v = (*it).first;
-            int w = (*it).second;
+        for(int i = 0; i < end_index[curr]; i++){
+            int v = neighbors[curr][i].first;
+            int w = neighbors[curr][i].second;
 
             bool check = w > distance[curr];
             int weight = (w * check) + (distance[curr] * !check);
@@ -63,16 +51,18 @@ int main(){
     int n, m;
     cin >> n >> m;
 
-    Graph g(n);
+    p neighbors[n][n];
+    int end_index[n];
+    fill(end_index, end_index + n, 0);
 
     int x, y, z;
 
     for(int i = 0; i < m; i++){
         cin >> x >> y >> z;
-        g.addEdge(x, y, z);
+        addEdge(n, neighbors, end_index, x, y, z);
     }
 
-    g.dijkstra(0);
+    dijkstra(neighbors, n, 0);
 
     return 0;
 }
